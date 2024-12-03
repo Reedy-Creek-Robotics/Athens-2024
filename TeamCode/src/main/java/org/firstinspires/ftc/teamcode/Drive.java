@@ -22,10 +22,13 @@ public class Drive extends LinearOpMode {
         DcMotor backLeftMotor = hardwareMap.dcMotor.get("backLeftMotor");
         DcMotor frontRightMotor = hardwareMap.dcMotor.get("frontRightMotor");
         DcMotor backRightMotor = hardwareMap.dcMotor.get("backRightMotor");
-        DcMotor centerMotor = hardwareMap.dcMotor.get("centerMotor");
-        DcMotor slideMotor = hardwareMap.dcMotor.get("slideMotor");
-        Servo wristServo = hardwareMap.servo.get("wristServo");
-        CRServo intakeServo = hardwareMap.get(CRServo.class, "Intake Servo");
+        DcMotor armMotor1 = hardwareMap.dcMotor.get("armMotor1");
+        DcMotor armMotor2 = hardwareMap.dcMotor.get("armMotor2");
+        Servo intakeWristServo = hardwareMap.servo.get("intakeWristServo");
+        CRServo intakeArmServo = hardwareMap.get(CRServo.class, "intakeArmServo");
+        Servo intakeClawServo = hardwareMap.servo.get("intakeClawServo");
+        Servo outtakeWristServo = hardwareMap.servo.get("outtakeWristServo");
+        Servo outtakeClawServo = hardwareMap.servo.get("outtakeClawServo");
 
         // Reverse the right side motors. This may be wrong for your setup.
         // If your robot moves backwards when commanded to go forwards,
@@ -50,55 +53,7 @@ public class Drive extends LinearOpMode {
         if (isStopRequested()) return;
 
         while (opModeIsActive()) {
-            telemetry.addData("centerMotorPosition",centerMotor.getCurrentPosition());
-            telemetry.update();
-            if (gamepad1.dpad_up) {
-                centerMotor.setTargetPosition(1940);
-                centerMotor.setPower(1);
 
-            }
-            if (gamepad1.a) {
-                centerMotor.setTargetPosition(-480);
-                centerMotor.setMode(DcMotor.RunMode.RUN_TO_POSITION);
-                centerMotor.setPower(1);
-            }
-            if (gamepad1.dpad_down) {
-                centerMotor.setTargetPosition(3643);
-                centerMotor.setPower(1);
-
-            }
-            if (gamepad1.b) {
-                centerMotor.setTargetPosition(-1199);
-                centerMotor.setPower(1);
-
-            }
-            if (gamepad1.left_bumper){
-                slideMotor.setPower(-0.75);
-            }
-            else if (gamepad1.right_bumper){
-                slideMotor.setPower(0.75);
-            }
-            else {
-                slideMotor.setPower(0);
-            }
-            if (gamepad1.dpad_right){
-                intakeServo.setPower(0.75);
-            }
-            else if (gamepad1.dpad_left){
-                intakeServo.setPower(-0.75);
-            }
-            else {
-                intakeServo.setPower(0);
-            }
-            if (gamepad1.y){
-                slideMotor.setPower(0);
-            }
-            if (gamepad1.left_stick_button){
-                wristServo.setPosition(0.25);
-            }
-            if (gamepad1.right_stick_button){
-                wristServo.setPosition(-2);
-            }
             double y = -gamepad1.left_stick_y; // Remember, Y stick value is reversed
             double x = gamepad1.left_stick_x;
             double rx = -gamepad1.right_stick_x;
